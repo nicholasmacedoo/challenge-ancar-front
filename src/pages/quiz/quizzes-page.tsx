@@ -48,7 +48,7 @@ export function QuizzesPage() {
   return (
     <div className="p-8">
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Quizzes</h1>
+        <h1 className="text-2xl font-bold">Questionários</h1>
         <Button asChild>
           <Link to="/questionarios/novo">Novo questionario</Link>
         </Button>
