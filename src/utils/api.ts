@@ -1,6 +1,19 @@
-export function api(path: string, init?: RequestInit) {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL
-  const url = new URL(path, baseUrl)
+import axios from 'axios'
 
-  return fetch(url, init)
-}
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+})
+
+api.interceptors.request.use(
+  (config) => {
+    config.headers.Authorization = `Bearer ${localStorage.getItem(
+      '@ancar-challenge:token',
+    )}`
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
+
+export default api
