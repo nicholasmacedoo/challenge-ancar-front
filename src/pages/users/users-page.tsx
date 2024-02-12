@@ -44,10 +44,11 @@ type CreateUserForm = z.infer<typeof createUserFormSchema>
 export function UsersPage() {
   const { register, handleSubmit, reset } = useForm<CreateUserForm>()
   const { toast } = useToast()
-  const { data, isLoading, count, limit } = useQueryPagination<IQuizzes>({
-    queryKey: 'users',
-    url: URL_API,
-  })
+  const { data, isLoading, count, limit, nextPage, previousPage } =
+    useQueryPagination<IQuizzes>({
+      queryKey: 'users',
+      url: URL_API,
+    })
 
   const enabledNext = count > limit
 
@@ -162,10 +163,10 @@ export function UsersPage() {
       <div>
         {enabledNext && (
           <div className="flex justify-end gap-6 mt-6">
-            <Button>
+            <Button onClick={previousPage}>
               <ChevronLeft size={16} />
             </Button>
-            <Button>
+            <Button onClick={nextPage}>
               <ChevronRight size={16} />
             </Button>
           </div>

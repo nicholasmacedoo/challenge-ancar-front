@@ -23,10 +23,11 @@ interface IQuizzes {
 }
 
 export function QuizzesPage() {
-  const { data, isLoading, count, limit } = useQueryPagination<IQuizzes>({
-    queryKey: 'quizzes',
-    url: URL_API,
-  })
+  const { data, isLoading, count, limit, nextPage, previousPage } =
+    useQueryPagination<IQuizzes>({
+      queryKey: 'quizzes',
+      url: URL_API,
+    })
   const { toast } = useToast()
   const enabledNext = count > limit
 
@@ -81,10 +82,10 @@ export function QuizzesPage() {
       <div>
         {enabledNext && (
           <div className="flex justify-end gap-6 mt-6">
-            <Button>
+            <Button onClick={previousPage}>
               <ChevronLeft size={16} />
             </Button>
-            <Button>
+            <Button onClick={nextPage}>
               <ChevronRight size={16} />
             </Button>
           </div>
