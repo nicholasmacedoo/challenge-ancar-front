@@ -111,8 +111,8 @@ export function NewQuiz() {
                 <TableBody>
                   {questions.map((question, index) => (
                     <TableRow key={`${question.descricao}-${index}`}>
-                      <TableCell width={50}>{index + 1} º</TableCell>
-                      <TableCell width="100%">{question.descricao}</TableCell>
+                      <TableCell width={100}>{index + 1} º</TableCell>
+                      <TableCell width="90%">{question.descricao}</TableCell>
                       <TableCell>
                         <Button
                           size="sm"

@@ -13,6 +13,7 @@ import api from '@/utils/api'
 import { Link } from 'react-router-dom'
 import { queryClient } from '@/contexts'
 import { useToast } from '@/components/ui/use-toast'
+import { TableLoading } from './components/table-loading'
 
 const URL_API = import.meta.env.VITE_API_URL + '/quizzes'
 
@@ -46,6 +47,8 @@ export function QuizzesPage() {
     }
   }
 
+  console.log(data)
+
   return (
     <div className="p-8">
       <div className="flex justify-between mb-6">
@@ -63,20 +66,24 @@ export function QuizzesPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((value) => (
-            <TableRow key={value.id}>
-              <TableCell>{value.nome}</TableCell>
-              <TableCell>{value.descricao}</TableCell>
-              <TableCell>
-                <Button
-                  variant="destructive"
-                  onClick={() => handleDelete(value.id)}
-                >
-                  <Trash size={16} />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {isLoading ? (
+            <TableLoading />
+          ) : (
+            data?.map((value) => (
+              <TableRow key={value.id}>
+                <TableCell>{value.nome}</TableCell>
+                <TableCell>{value.descricao}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleDelete(value.id)}
+                  >
+                    <Trash size={16} />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
       <div>
@@ -91,7 +98,7 @@ export function QuizzesPage() {
           </div>
         )}
       </div>
-      {isLoading && <span>Carregando...</span>}
+      {/* {isLoading && <span>Carregando...</span>} */}
     </div>
   )
 }
